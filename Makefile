@@ -67,7 +67,7 @@ tests: $(TEST_NAME)
 				./$(TEST_NAME)
 
 $(TEST_NAME):	$(TEST_OBJ) $(NAME)
-				$(CC) $(CFLAGS) $(TEST_OBJ) $(NAME) -o $(TEST_NAME)
+				$(CC) $(CFLAGS) $(TEST_OBJ) -L. -l:$(NAME) -o $(TEST_NAME)
 
 # ---------- VARIABLES RULES ---------- #
 
