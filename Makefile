@@ -1,27 +1,45 @@
 #*******************************  VARIABLES  **********************************#
 
 NAME			=	libasm.a
+TEST_NAME		=	tests_bin
 
 # --------------- FILES --------------- #
 
-LIST_ASM_SRC		=	ft_read.s	\
+LIST_ASM_SRC		=	\
+						ft_read.s	\
 						ft_strcmp.s	\
 						ft_strcpy.s	\
 						ft_strdup.s	\
 						ft_strlen.s	\
 						ft_write.s
 
+LIST_TEST_SRC		=	\
+						ft_read.c	\
+						ft_strcmp.c	\
+						ft_strcpy.c	\
+						ft_strdup.c	\
+						ft_strlen.c	\
+						ft_write.c	\
+						main.c
+
 # ------------ DIRECTORIES ------------ #
 
 DIR_BUILD		=	.build/
 DIR_SRC 		=	src/
 DIR_INCLUDE		=	include/
+DIR_TEST		=	test/
+DIR_LIB			=	lib/
+DIR_UTEST		=	$(DIR_LIB)utest/
 
 # ------------- SHORTCUTS ------------- #
 
 OBJ				=	$(patsubst %.s, $(DIR_BUILD)%.o, $(SRC))
 DEP				=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
-SRC				=	$(addprefix $(DIR_SRC),$(LIST_ASM_SRC))
+SRC				=	$(addprefix $(DIR_SRC), $(LIST_ASM_SRC))
+TEST_SRC		=	$(addprefix $(DIR_TEST), $(LIST_TEST_SRC))
+TEST_DEP		=	$(patsubst %.c, $(DIR_BUILD)%.d, $(TEST_SRC))
+TEST_OBJ		=	$(patsubst %.c, $(DIR_BUILD)%.o, $(TEST_SRC))
+UTEST_INCLUDE	=	$(DIR_UTEST)
 
 # ------------ COMPILATION ------------ #
 
@@ -44,9 +62,12 @@ MKDIR			=	mkdir -p
 .PHONY: all
 all:			$(NAME)
 
-.PHONY: test
-test: $(NAME)
-				gcc test.c $(NAME)
+.PHONY: tests
+tests: $(TEST_NAME)
+				./$(TEST_NAME)
+
+$(TEST_NAME):	$(TEST_OBJ) $(NAME)
+				$(CC) $(CFLAGS) $(TEST_OBJ) $(NAME) -o $(TEST_NAME)
 
 # ---------- VARIABLES RULES ---------- #
 
@@ -55,11 +76,14 @@ $(NAME):		$(OBJ)
 
 # ---------- COMPILED RULES ----------- #
 
-#-include $(DEP)
-
 $(DIR_BUILD)%.o: %.s
 				mkdir -p $(shell dirname $@)
 				$(AS) $(ASFLAGS) $< -o $@
+
+-include $(TEST_DEP)
+$(DIR_BUILD)%.o: %.c
+				mkdir -p $(shell dirname $@)
+				$(CC) $(CFLAGS) $(DEP_FLAGS) -c $< -o $@ -I $(DIR_INCLUDE) -I $(UTEST_INCLUDE)
 
 .PHONY: clean
 clean:
@@ -68,6 +92,7 @@ clean:
 .PHONY: fclean
 fclean: clean
 				$(RM) $(NAME)
+				$(RM) $(TEST_NAME)
 
 .PHONY: re
 re:				fclean
