@@ -97,3 +97,11 @@ fclean: clean
 .PHONY: re
 re:				fclean
 				$(MAKE) all
+
+.PHONY: check-format
+check-format:
+				clang-format -style=file $(TEST_SRC) -n --Werror
+
+.PHONY: format
+format:
+				clang-format -style=file $(TEST_SRC) -i
