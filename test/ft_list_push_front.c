@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include <errno.h>
+#include <string.h>
 
 #include "libasm.h"
 #include "utest.h"

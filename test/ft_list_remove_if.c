@@ -120,14 +120,14 @@ UTEST(ft_list_remove_if, multiple_nodes) {
 }
 
 UTEST(ft_list_remove_if, full_remove_with_multiple_nodes) {
-        char *data1 = strdup("Hello, World!");
-        char *data2 = strdup("Hello, World!");
-        char *data3 = strdup("Hello, World!");
-        t_list *list = NULL;
-        ft_list_push_front(&list, data1);
-        ft_list_push_front(&list, data2);
-        ft_list_push_front(&list, data3);
-        ft_list_remove_if(&list, "Hello, World!", strcmp, free);
-        ASSERT_EQ(list, NULL);
-        ASSERT_EQ(errno, 0);
+  char *data1 = strdup("Hello, World!");
+  char *data2 = strdup("Hello, World!");
+  char *data3 = strdup("Hello, World!");
+  t_list *list = NULL;
+  ft_list_push_front(&list, data1);
+  ft_list_push_front(&list, data2);
+  ft_list_push_front(&list, data3);
+  ft_list_remove_if(&list, "Hello, World!", strcmp, free);
+  ASSERT_EQ(list, NULL);
+  ASSERT_EQ(errno, 0);
 }
