@@ -6,20 +6,29 @@ TEST_NAME		=	tests_bin
 # --------------- FILES --------------- #
 
 LIST_ASM_SRC		=	\
-						ft_read.s	\
-						ft_strcmp.s	\
-						ft_strcpy.s	\
-						ft_strdup.s	\
-						ft_strlen.s	\
+						ft_create_elem.s		\
+						ft_list.s				\
+						ft_list_push_front.s	\
+						ft_list_remove_if.s		\
+						ft_list_size.s			\
+						ft_read.s				\
+						ft_strcmp.s				\
+						ft_strcpy.s				\
+						ft_strdup.s				\
+						ft_strlen.s				\
 						ft_write.s
 
 LIST_TEST_SRC		=	\
-						ft_read.c	\
-						ft_strcmp.c	\
-						ft_strcpy.c	\
-						ft_strdup.c	\
-						ft_strlen.c	\
-						ft_write.c	\
+						ft_create_elem.c		\
+						ft_list_push_front.c	\
+						ft_list_remove_if.c		\
+						ft_list_size.c			\
+						ft_read.c				\
+						ft_strcmp.c				\
+						ft_strcpy.c				\
+						ft_strdup.c				\
+						ft_strlen.c				\
+						ft_write.c				\
 						main.c
 
 # ------------ DIRECTORIES ------------ #
@@ -44,7 +53,7 @@ UTEST_INCLUDE	=	$(DIR_UTEST)
 # ------------ COMPILATION ------------ #
 
 AS				=	nasm
-ASFLAGS			=	-f elf64
+ASFLAGS			=	-f elf64 -I $(DIR_SRC)
 
 CFLAGS			=	-Wall -Wextra -Werror
 
@@ -64,7 +73,7 @@ all:			$(NAME)
 
 .PHONY: tests
 tests: $(TEST_NAME)
-				./$(TEST_NAME)
+				valgrind ./$(TEST_NAME)
 
 $(TEST_NAME):	$(TEST_OBJ) $(NAME)
 				$(CC) $(CFLAGS) $(TEST_OBJ) -L. -l:$(NAME) -o $(TEST_NAME)
