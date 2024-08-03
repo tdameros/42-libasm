@@ -25,7 +25,7 @@ UTEST(ft_create_elem, null_data) {
 UTEST(ft_create_elem, non_null_data) {
   char *data = strdup("Hello, World!");
   t_list *elem = ft_create_elem(data);
-  ASSERT_EQ(elem->data, data);
+  ASSERT_STREQ(elem->data, data);
   ASSERT_EQ(elem->next, NULL);
   free(data);
   free(elem);
@@ -37,9 +37,9 @@ UTEST(ft_create_elem, multiple_elems) {
   t_list *elem1 = ft_create_elem(data1);
   t_list *elem2 = ft_create_elem(data2);
   elem1->next = elem2;
-  ASSERT_EQ(elem1->data, data1);
+  ASSERT_STREQ(elem1->data, data1);
   ASSERT_EQ(elem1->next, elem2);
-  ASSERT_EQ(elem2->data, data2);
+  ASSERT_STREQ(elem2->data, data2);
   ASSERT_EQ(elem2->next, NULL);
   free(data1);
   free(data2);
