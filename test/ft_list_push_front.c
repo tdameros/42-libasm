@@ -20,7 +20,7 @@ UTEST(ft_list_push_front, null_list) {
   t_list *list = NULL;
   char *data = strdup("Hello, World!");
   ft_list_push_front(&list, data);
-  ASSERT_EQ(list->data, data);
+  ASSERT_STREQ(list->data, data);
   ASSERT_EQ(list->next, NULL);
   free(data);
   free(list);
@@ -31,8 +31,8 @@ UTEST(ft_list_push_front, non_null_list) {
   char *data2 = strdup("Hello, 42!");
   t_list *list = ft_create_elem(data1);
   ft_list_push_front(&list, data2);
-  ASSERT_EQ(list->data, data2);
-  ASSERT_EQ(list->next->data, data1);
+  ASSERT_STREQ(list->data, data2);
+  ASSERT_STREQ(list->next->data, data1);
   ASSERT_EQ(list->next->next, NULL);
   free(data1);
   free(data2);
@@ -47,9 +47,9 @@ UTEST(ft_list_push_front, multiple_elems) {
   t_list *list = ft_create_elem(data1);
   ft_list_push_front(&list, data2);
   ft_list_push_front(&list, data3);
-  ASSERT_EQ(list->data, data3);
-  ASSERT_EQ(list->next->data, data2);
-  ASSERT_EQ(list->next->next->data, data1);
+  ASSERT_STREQ(list->data, data3);
+  ASSERT_STREQ(list->next->data, data2);
+  ASSERT_STREQ(list->next->next->data, data1);
   ASSERT_EQ(list->next->next->next, NULL);
   free(data1);
   free(data2);

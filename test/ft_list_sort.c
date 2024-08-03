@@ -30,7 +30,7 @@ UTEST(ft_list_sort, empty_list) {
 UTEST(ft_list_sort, null_cmp) {
   t_list *list = ft_create_elem("Hello, World!");
   ft_list_sort(&list, NULL);
-  ASSERT_EQ(list->data, "Hello, World!");
+  ASSERT_STREQ(list->data, "Hello, World!");
   ASSERT_EQ(list->next, NULL);
   free_list(list);
 }
