@@ -29,6 +29,7 @@ ft_list_push_front:
   mov rsi, [rdi]
   mov qword [rax + LIST_NEXT_OFFSET], rsi
   mov qword [rdi], rax
-  .return
+  jmp .return
+
 .return:
   ret
