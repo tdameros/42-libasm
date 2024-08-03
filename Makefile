@@ -46,7 +46,7 @@ DIR_UTEST		=	$(DIR_LIB)utest/
 # ------------- SHORTCUTS ------------- #
 
 OBJ				=	$(patsubst %.s, $(DIR_BUILD)%.o, $(SRC))
-DEP				=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
+DEP				=	$(patsubst %.s, $(DIR_BUILD)%.d, $(SRC))
 SRC				=	$(addprefix $(DIR_SRC), $(LIST_ASM_SRC))
 TEST_SRC		=	$(addprefix $(DIR_TEST), $(LIST_TEST_SRC))
 TEST_DEP		=	$(patsubst %.c, $(DIR_BUILD)%.d, $(TEST_SRC))
@@ -71,6 +71,7 @@ MKDIR			=	mkdir -p
 
 #***********************************  RULES  **********************************#
 
+
 .PHONY: all
 all:			$(NAME)
 
@@ -88,9 +89,10 @@ $(NAME):		$(OBJ)
 
 # ---------- COMPILED RULES ----------- #
 
+-include $(DEP)
 $(DIR_BUILD)%.o: %.s
 				mkdir -p $(shell dirname $@)
-				$(AS) $(ASFLAGS) $< -o $@
+				$(AS) $(ASFLAGS) -MD $(@:.o=.d) $< -o $@
 
 -include $(TEST_DEP)
 $(DIR_BUILD)%.o: %.c

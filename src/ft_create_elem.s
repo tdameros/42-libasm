@@ -25,6 +25,7 @@ ft_create_elem:
   pop rdi
   mov [rax + LIST_DATA_OFFSET], rdi
   mov qword [rax + LIST_NEXT_OFFSET], 0
-  return
+  jmp return
+
 return:
   ret
