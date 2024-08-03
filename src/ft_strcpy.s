@@ -1,10 +1,10 @@
 bits 64
 
+global ft_strcpy
+
 section .note.GNU-stack
 
 section .text
-    global ft_strcpy
-
 ; char *ft_strcpy(char *dst, const char *src);
 ft_strcpy:
     xor rcx, rcx

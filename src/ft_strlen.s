@@ -1,10 +1,10 @@
 bits 64
 
+global ft_strlen
+
 section .note.GNU-stack
 
 section .text
-    global ft_strlen
-
 ; size_t ft_strlen(const char *str);
 ft_strlen:
     xor rax, rax

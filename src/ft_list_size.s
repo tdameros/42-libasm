@@ -2,11 +2,11 @@ bits 64
 
 %include "ft_list.s"
 
+global ft_list_size
+
 section .note.GNU-stack
 
 section .text
-    global ft_list_size
-
 ;typedef struct s_list
 ;{
 ;   void *data;

@@ -2,11 +2,11 @@ bits 64
 
 extern __errno_location
 
+global ft_read
+
 section .note.GNU-stack
 
 section .text
-    global ft_read
-
 ; ssize_t ft_read(int fd, void *buf, size_t count);
 ft_read:
     xor rax, rax

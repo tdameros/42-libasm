@@ -1,10 +1,10 @@
 bits 64
 
+global ft_strcmp
+
 section .note.GNU-stack
 
 section .text
-    global ft_strcmp
-
 ; int ft_strcmp(const char *s1, const char *s2);
 ft_strcmp:
     xor rax, rax
