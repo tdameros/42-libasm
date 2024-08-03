@@ -14,6 +14,7 @@
 
 #include "libasm.h"
 #include "utest.h"
+#include "utils.h"
 
 UTEST(ft_list_remove_if, null_list_ptr) {
   t_list **list_ptr = NULL;
@@ -27,13 +28,6 @@ UTEST(ft_list_remove_if, null_list) {
   ft_list_remove_if(&list, "Hello, World!", strcmp, free);
   ASSERT_EQ(list, NULL);
   ASSERT_EQ(errno, 0);
-}
-
-static int my_strcmp(const void *s1, const void *s2) {
-  if (s1 == NULL || s2 == NULL) {
-    return 1;
-  }
-  return strcmp(s1, s2);
 }
 
 UTEST(ft_list_remove_if, null_data_ref) {

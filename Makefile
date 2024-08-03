@@ -11,6 +11,7 @@ LIST_ASM_SRC		=	\
 						ft_list_push_front.s	\
 						ft_list_remove_if.s		\
 						ft_list_size.s			\
+						ft_list_sort.s			\
 						ft_read.s				\
 						ft_strcmp.s				\
 						ft_strcpy.s				\
@@ -23,13 +24,15 @@ LIST_TEST_SRC		=	\
 						ft_list_push_front.c	\
 						ft_list_remove_if.c		\
 						ft_list_size.c			\
+						ft_list_sort.c			\
 						ft_read.c				\
 						ft_strcmp.c				\
 						ft_strcpy.c				\
 						ft_strdup.c				\
 						ft_strlen.c				\
 						ft_write.c				\
-						main.c
+						main.c					\
+						utils.c
 
 # ------------ DIRECTORIES ------------ #
 
@@ -55,7 +58,7 @@ UTEST_INCLUDE	=	$(DIR_UTEST)
 AS				=	nasm
 ASFLAGS			=	-f elf64 -I $(DIR_SRC)
 
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -g3
 
 DEP_FLAGS		=	-MMD -MP
 
@@ -73,7 +76,7 @@ all:			$(NAME)
 
 .PHONY: tests
 tests: $(TEST_NAME)
-				valgrind ./$(TEST_NAME)
+				valgrind ./$(TEST_NAME) # --filter=ft_list_sort.sorted_merge
 
 $(TEST_NAME):	$(TEST_OBJ) $(NAME)
 				$(CC) $(CFLAGS) $(TEST_OBJ) -L. -l:$(NAME) -o $(TEST_NAME)

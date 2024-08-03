@@ -33,5 +33,9 @@ t_list *ft_create_elem(void *data);
 void ft_list_push_front(t_list **begin_list, void *data);
 int ft_list_size(t_list *begin_list);
 void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+void ft_list_sort(t_list **begin_list, int (*cmp)());
+
+t_list *get_middle(t_list *);
+t_list* sorted_merge(t_list *left, t_list *right, int (*cmp)(void*, void*));
 
 #endif
