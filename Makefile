@@ -58,7 +58,7 @@ UTEST_INCLUDE	=	$(DIR_UTEST)
 AS				=	nasm
 ASFLAGS			=	-f elf64 -I $(DIR_SRC)
 
-CFLAGS			=	-Wall -Wextra -Werror -g3
+CFLAGS			=	-Wall -Wextra -Werror
 
 DEP_FLAGS		=	-MMD -MP
 
@@ -76,7 +76,7 @@ all:			$(NAME)
 
 .PHONY: tests
 tests: $(TEST_NAME)
-				valgrind ./$(TEST_NAME) # --filter=ft_list_sort.sorted_merge
+				valgrind ./$(TEST_NAME)
 
 $(TEST_NAME):	$(TEST_OBJ) $(NAME)
 				$(CC) $(CFLAGS) $(TEST_OBJ) -L. -l:$(NAME) -o $(TEST_NAME)
