@@ -4,11 +4,11 @@ bits 64
 
 extern free
 
+global ft_list_remove_if
+
 section .note.GNU-stack
 
 section .text
-    global ft_list_remove_if
-
 ;typedef struct s_list
 ;{
 ;   void *data;

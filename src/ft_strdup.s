@@ -5,12 +5,12 @@ extern ft_strlen
 extern ft_strcpy
 extern malloc
 
+global ft_strdup
+
 section .note.GNU-stack
 
-; char *ft_strdup(const char *s1);
 section .text
-    global ft_strdup
-
+; char *ft_strdup(const char *s1);
 ft_strdup:
     call ft_strlen
     push rdi

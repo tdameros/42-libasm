@@ -4,8 +4,9 @@ bits 64
 
 section .note.GNU-stack
 
+global ft_list_sort
+
 section .text
-    global ft_list_sort
 
 ;typedef struct s_list
 ;{

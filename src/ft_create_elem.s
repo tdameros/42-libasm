@@ -1,14 +1,14 @@
 bits 64
 
+%include "ft_list.s"
+
 extern malloc
 
-%include "ft_list.s"
+global ft_create_elem
 
 section .note.GNU-stack
 
 section .text
-    global ft_create_elem
-
 ;typedef struct s_list
 ;{
 ;   void *data;
