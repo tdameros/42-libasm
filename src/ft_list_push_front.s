@@ -7,8 +7,6 @@ extern ft_create_elem
 
 global ft_list_push_front
 
-section .note.GNU-stack
-
 section .text
 ;typedef struct s_list
 ;{
@@ -21,10 +19,12 @@ ft_list_push_front:
   test rdi, rdi
   jz .return
   push rdi
+  push rsi
   mov rdi, rsi
   call ft_create_elem
   cmp rax, 0
   jz .return
+  pop rsi
   pop rdi
   mov rsi, [rdi]
   mov qword [rax + LIST_NEXT_OFFSET], rsi

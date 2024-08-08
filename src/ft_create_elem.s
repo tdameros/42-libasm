@@ -6,8 +6,6 @@ extern malloc
 
 global ft_create_elem
 
-section .note.GNU-stack
-
 section .text
 ;typedef struct s_list
 ;{
@@ -21,11 +19,11 @@ ft_create_elem:
   mov rdi, LIST_SIZE
   call malloc wrt ..plt
   cmp rax, 0
-  jz return
+  jz .return
   pop rdi
   mov [rax + LIST_DATA_OFFSET], rdi
   mov qword [rax + LIST_NEXT_OFFSET], 0
-  jmp return
+  ret
 
-return:
+.return:
   ret

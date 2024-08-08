@@ -7,27 +7,25 @@ extern malloc
 
 global ft_strdup
 
-section .note.GNU-stack
-
 section .text
 ; char *ft_strdup(const char *s1);
 ft_strdup:
-    call ft_strlen
     push rdi
+    call ft_strlen
     mov rdi, rax
     inc rdi
     call malloc wrt ..plt
     cmp rax, 0
-    je malloc_error
+    je .malloc_error
     mov rdi, rax
     pop rsi
     call ft_strcpy
     ret
 
-malloc_error:
+.malloc_error:
     neg rax
-    mov rbx, rax
+    mov rdi, rax
     call __errno_location wrt ..plt
-    mov [rax], rbx
+    mov [rax], rdi
     xor rax, rax
     ret

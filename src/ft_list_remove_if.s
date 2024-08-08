@@ -6,8 +6,6 @@ extern free
 
 global ft_list_remove_if
 
-section .note.GNU-stack
-
 section .text
 ;typedef struct s_list
 ;{
@@ -45,10 +43,10 @@ section .text
 ft_list_remove_if:
   ; begin_list
   test rdi, rdi
-  jz end
+  jz .end
   ; cmp
   test rdx, rdx
-  jz end
+  jz .end
   ; save r8 and r9
   push r8
   push r9
@@ -56,13 +54,13 @@ ft_list_remove_if:
   mov r8, [rdi]
   ; previous_node
   xor r9, r9
-  jmp loop
-loop:
+  jmp .loop
+.loop:
    test r8, r8
-   jz end_loop
-   jmp cmp_function
+   jz .end_loop
+   jmp .cmp_function
 
-cmp_function:
+.cmp_function:
    push rdi
    push rsi
    push rdx
@@ -79,29 +77,29 @@ cmp_function:
    pop rsi
    pop rdi
    test rax, rax
-   jz remove_node
-   jnz next_node
+   jz .remove_node
+   jnz .next_node
 
-remove_node:
+.remove_node:
   ; if previous != NULL
   test r9, r9
-  jnz link_previous_to_next
-  jmp link_to_next
+  jnz .link_previous_to_next
+  jmp .link_to_next
 
-link_previous_to_next:
+.link_previous_to_next:
   mov rax, [r8 + LIST_NEXT_OFFSET]
   mov [r9 + LIST_NEXT_OFFSET], rax
-  jmp free_node
+  jmp .free_node
 
-link_to_next:
+.link_to_next:
   mov rax, [r8 + LIST_NEXT_OFFSET]
   mov [rdi], rax
-  jmp free_node
+  jmp .free_node
 
-free_node:
+.free_node:
   ; if free_fct != NULL
   test rcx, rcx
-  jnz call_free_fct
+  jnz .call_free_fct
   push rdi
   push rsi
   push rdx
@@ -116,9 +114,9 @@ free_node:
   pop rdx
   pop rsi
   pop rdi
-  jmp update_current_after_free
+  jmp .update_current_after_free
 
-call_free_fct:
+.call_free_fct:
    push rdi
    push rsi
    push rdx
@@ -129,15 +127,7 @@ call_free_fct:
    call rcx
    pop r9
    pop r8
-   pop rcx
-   pop rdx
-   pop rsi
-   pop rdi
 
-   push rdi
-   push rsi
-   push rdx
-   push rcx
    push r8
    push r9
    mov rdi, r8
@@ -149,29 +139,29 @@ call_free_fct:
    pop rdx
    pop rsi
    pop rdi
-  jmp update_current_after_free
+  jmp .update_current_after_free
 
-update_current_after_free:
+.update_current_after_free:
   ; if previous != NULL
   test r9, r9
-  jnz link_current_to_previous_next
+  jnz .link_current_to_previous_next
   mov r8, [rdi]
-  jmp loop
+  jmp .loop
 
-link_current_to_previous_next:
+.link_current_to_previous_next:
   mov r8, [r9 + LIST_NEXT_OFFSET]
-  jmp loop
+  jmp .loop
 
-next_node:
+.next_node:
   mov r9, r8
   mov r8, [r8 + LIST_NEXT_OFFSET]
-  jmp loop
+  jmp .loop
 
-end_loop:
+.end_loop:
   ; restore r8 and r9
   pop r9
   pop r8
   ret
 
-end:
+.end:
   ret

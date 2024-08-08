@@ -4,21 +4,19 @@ extern __errno_location
 
 global ft_read
 
-section .note.GNU-stack
-
 section .text
 ; ssize_t ft_read(int fd, void *buf, size_t count);
 ft_read:
     xor rax, rax
     syscall
     test rax, rax
-    js syscall_error
+    js .syscall_error
     ret
 
-syscall_error:
+.syscall_error:
     neg rax
-    mov rdx, rax
+    mov rdi, rax
     call __errno_location wrt ..plt
-    mov [rax], rdx
+    mov [rax], rdi
     mov rax, -1
     ret
