@@ -6,6 +6,7 @@ TEST_NAME		=	tests_bin
 # --------------- FILES --------------- #
 
 LIST_ASM_SRC		=	\
+						ft_atoi_base.s			\
 						ft_create_elem.s		\
 						ft_list.s				\
 						ft_list_push_front.s	\
@@ -20,6 +21,7 @@ LIST_ASM_SRC		=	\
 						ft_write.s
 
 LIST_TEST_SRC		=	\
+						ft_atoi_base.c			\
 						ft_create_elem.c		\
 						ft_list_push_front.c	\
 						ft_list_remove_if.c		\

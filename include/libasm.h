@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBASM_BUILD_INCLUDE_LIBASM_H_
-# define LIBASM_BUILD_INCLUDE_LIBASM_H_
+#ifndef LIBASM_H
+# define LIBASM_H
 
-# include <sys/types.h>
+#include <sys/types.h>
 
 typedef struct s_list
 {
@@ -34,5 +34,5 @@ void ft_list_push_front(t_list **begin_list, void *data);
 int ft_list_size(t_list *begin_list);
 void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 void ft_list_sort(t_list **begin_list, int (*cmp)());
-
+int ft_atoi_base(char *str, char *base);
 #endif
