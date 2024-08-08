@@ -1,7 +1,5 @@
 bits 64
 
-section .note.GNU-stack
-
 ;typedef struct s_list
 ;{
 ;   void *data;
@@ -11,6 +9,3 @@ section .data
   LIST_DATA_OFFSET EQU 0
   LIST_NEXT_OFFSET EQU 8
   LIST_SIZE EQU 16
-
-
-

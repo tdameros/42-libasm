@@ -4,8 +4,6 @@ bits 64
 
 global ft_list_size
 
-section .note.GNU-stack
-
 section .text
 ;typedef struct s_list
 ;{
@@ -16,12 +14,12 @@ section .text
 ;int ft_list_size(t_list *begin_list);
 ft_list_size:
   xor rax, rax
-  jmp loop
-loop:
+  jmp .loop
+.loop:
     cmp rdi, 0
-    je end
+    je .end
     mov rdi, [rdi + LIST_NEXT_OFFSET]
     inc rax
-    jmp loop
-end:
+    jmp .loop
+.end:
     ret

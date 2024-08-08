@@ -2,8 +2,6 @@ bits 64
 
 %include "ft_list.s"
 
-section .note.GNU-stack
-
 global ft_list_sort
 
 section .text
@@ -71,13 +69,13 @@ section .text
 ;void ft_list_sort(t_list **begin_list, int (*cmp)());
 ft_list_sort:
     test rdi, rdi
-    jz ft_list_sort_end
+    jz .ft_list_sort_end
     mov r8, [rdi]
     test r8, r8
-    jz ft_list_sort_end
+    jz .ft_list_sort_end
     mov r8, [r8 + LIST_NEXT_OFFSET]
     test r8, r8
-    jz ft_list_sort_end
+    jz .ft_list_sort_end
     sub rsp, 16
     push rdi
     push rsi
@@ -124,16 +122,16 @@ ft_list_sort:
     add rsp, 16
     ret
 
-ft_list_sort_end:
+.ft_list_sort_end:
     ret
 
 
 ;t_list* sorted_merge(t_list *left, t_list *right, int (*cmp)(void*, void*))
 sorted_merge:
    test rdi, rdi
-   jz sorted_merge_ret_right
+   jz .sorted_merge_ret_right
    test rsi, rsi
-   jz sorted_merge_ret_left
+   jz .sorted_merge_ret_left
    ; result
    sub rsp, 8
    mov qword [rsp + 0], 0
@@ -148,18 +146,18 @@ sorted_merge:
    pop rdi
    ; cmp only int32_t
    cmp eax, 0
-   jle sorted_merge_below_or_equal
-   jmp sorted_merge_greater
+   jle .sorted_merge_below_or_equal
+   jmp .sorted_merge_greater
 
-sorted_merge_ret_left:
+.sorted_merge_ret_left:
    mov rax, rdi
    ret
 
-sorted_merge_ret_right:
+.sorted_merge_ret_right:
    mov rax, rsi
    ret
 
-sorted_merge_below_or_equal:
+.sorted_merge_below_or_equal:
    mov [rsp + 0], rdi
    push rdi
    push rsi
@@ -171,9 +169,9 @@ sorted_merge_below_or_equal:
    pop rdi
    mov r8, [rsp + 0]
    mov [r8 + LIST_NEXT_OFFSET], rax
-   jmp sorted_merge_end
+   jmp .sorted_merge_end
 
-sorted_merge_greater:
+.sorted_merge_greater:
    mov [rsp + 0], rsi
    push rdi
    push rsi
@@ -185,9 +183,9 @@ sorted_merge_greater:
    pop rdi
    mov r8, [rsp + 0]
    mov [r8 + LIST_NEXT_OFFSET], rax
-   jmp sorted_merge_end
+   jmp .sorted_merge_end
 
-sorted_merge_end:
+.sorted_merge_end:
    mov rax, [rsp + 0]
    add rsp, 8
    ret
@@ -195,31 +193,31 @@ sorted_merge_end:
 ;t_list* get_middle(t_list *head)
 get_middle:
    test rdi, rdi
-   jz get_middle_ret_head
-   jnz get_middle_loop
+   jz .get_middle_ret_head
+   jnz .get_middle_loop
 
-get_middle_loop:
+.get_middle_loop:
    sub rsp, 16
    ; slow
    mov [rsp + 0], rdi
    ; fast
    mov [rsp + 8], rdi
-   jmp get_middle_loop_condition
+   jmp .get_middle_loop_condition
 
-get_middle_loop_condition:
+.get_middle_loop_condition:
    mov r8, [rsp + 8]
    mov r8, [r8 + LIST_NEXT_OFFSET]
    test r8, r8
-   jnz get_middle_loop_condition2
-   jmp get_middle_ret_slow
+   jnz .get_middle_loop_condition2
+   jmp .get_middle_ret_slow
 
-get_middle_loop_condition2:
+.get_middle_loop_condition2:
    mov r8, [r8 + LIST_NEXT_OFFSET]
    test r8, r8
-   jnz  get_middle_loop_routine
-   jmp get_middle_ret_slow
+   jnz .get_middle_loop_routine
+   jmp .get_middle_ret_slow
 
-get_middle_loop_routine:
+.get_middle_loop_routine:
    mov r8, [rsp + 0]
    mov r8, [r8 + LIST_NEXT_OFFSET]
    mov [rsp + 0], r8
@@ -227,16 +225,16 @@ get_middle_loop_routine:
    mov r8, [r8 + LIST_NEXT_OFFSET]
    mov r8, [r8 + LIST_NEXT_OFFSET]
    mov [rsp + 8], r8
-   jmp get_middle_loop_condition
+   jmp .get_middle_loop_condition
 
-get_middle_ret_head:
+.get_middle_ret_head:
    mov rax, rdi
    ret
 
-get_middle_ret_slow:
+.get_middle_ret_slow:
    mov rax, [rsp + 0]
    add rsp, 16
    ret
 
-end:
+.end:
    ret

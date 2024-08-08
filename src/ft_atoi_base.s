@@ -4,8 +4,7 @@ extern ft_strlen
 
 global ft_atoi_base
 
-section .note.GNU-stack
-
+section .text
 ; int	ft_atoi_base(char *str, char *base)
 ;{
 ;   int	index;
@@ -88,7 +87,6 @@ section .note.GNU-stack
 ;   return (-1);
 ; }
 
-section .text
 ;int ft_atoi_base(char *str, char *base);
 ft_atoi_base:
     push rdi
