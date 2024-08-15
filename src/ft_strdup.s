@@ -23,9 +23,4 @@ ft_strdup:
     ret
 
 .malloc_error:
-    neg rax
-    mov rdi, rax
-    call __errno_location wrt ..plt
-    mov [rax], rdi
-    xor rax, rax
     ret
